@@ -7,7 +7,7 @@ describe("newOrder tests", () => {
     personalData: { nome: "", cognome: "", codiceFiscale: "", email: "" },
     giftCards: [],
   };
-  
+
   // Pass mock data to "order" before each test
   beforeEach(() => {
     const data = {
@@ -19,29 +19,29 @@ describe("newOrder tests", () => {
     order = newOrder(data);
   });
 
-  it("newOrder: 'codice fiscale' is a string", () => {
+  it("'codice fiscale' is a string", () => {
     expect(typeof order.personalData.codiceFiscale).toBe("string");
   });
 
-  it("newOrder: 'codice fiscale' is 16 characters long", () => {
+  it("'codice fiscale' is 16 characters long", () => {
     expect(order.personalData.codiceFiscale).toHaveLength(16);
   });
-  it("newOrder: 'nome' is a string", () => {
+  it("'nome' is a string", () => {
     expect(typeof order.personalData.nome).toBe("string");
   });
-  it("newOrder: 'name' is under 25 characters long", () => {
+  it("'name' is under 25 characters long", () => {
     expect(order.personalData.nome.length).toBeLessThanOrEqual(25);
   });
-  it("newOrder: 'cognome' is a string", () => {
+  it("'cognome' is a string", () => {
     expect(typeof order.personalData.cognome).toBe("string");
   });
-  it("newOrder: 'cognome' is under 30 characters long", () => {
+  it("'cognome' is under 30 characters long", () => {
     expect(order.personalData.cognome.length).toBeLessThanOrEqual(30);
   });
-  it("newOrder: 'email' is a string", () => {
+  it("'email' is a string", () => {
     expect(typeof order.personalData.email).toBe("string");
   });
-  it("newOrder: 'email' is a valid email address", () => {
+  it("'email' is a valid email address", () => {
     expect(order.personalData.email).toMatch(
       /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
     );

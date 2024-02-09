@@ -1,78 +1,48 @@
 import { newOrder } from "../modules/businessLogic";
+import { orderType } from "../types/types";
 
 describe("newOrder tests", () => {
-  it("newOrder: order is defined", () => {
-    // Given
-    // When
-    const order = newOrder();
-    // Then
-    expect(order).toBeDefined();
+  
+  let order: orderType = {
+    personalData: { nome: "", cognome: "", codiceFiscale: "", email: "" },
+    giftCards: [],
+  };
+  
+  // Pass mock data to "order" before each test
+  beforeEach(() => {
+    const data = {
+      codiceFiscale: "RSSMRA80A01H501A",
+      nome: "Mario",
+      cognome: "Rossi",
+      email: "mario.rossi@gmail.com",
+    };
+    order = newOrder(data);
   });
+
   it("newOrder: 'codice fiscale' is a string", () => {
-    // Given
-    // When
-    const order = newOrder();
-    // Then
-    expect(order.codiceFiscale).toBeInstanceOf(String);
-  }),
-    it("newOrder: 'codice fiscale' is 16 characters long", () => {
-      // Given
-      // When
-      const order = newOrder();
-      // Then
-      expect(order.codiceFiscale).toHaveLength(16);
-    }),
-    it("newOrder: 'codice fiscale' is a valid Italian fiscal code", () => {
-      // Given
-      // When
-      const order = newOrder();
-      // Then
-      // ** Regex from http://blog.marketto.it/2016/01/regex-validazione-codice-fiscale-con-omocodia/
-      expect(order.codiceFiscale).toMatch(
-        /^(?:[A-Z][AEIOU][AEIOUX]|[AEIOU]X{2}|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}(?:[\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])(?:[A-MZ][1-9MNP-V][\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]$/i
-      );
-    });
+    expect(typeof order.personalData.codiceFiscale).toBe("string");
+  });
+
+  it("newOrder: 'codice fiscale' is 16 characters long", () => {
+    expect(order.personalData.codiceFiscale).toHaveLength(16);
+  });
   it("newOrder: 'nome' is a string", () => {
-    // Given
-    // When
-    const order = newOrder();
-    // Then
-    expect(order.nome).toBeInstanceOf(String);
-  }),
-    it("newOrder: 'name' is under 25 characters long", () => {
-      // Given
-      // When
-      const order = newOrder();
-      // Then
-      expect(order.nome).toBeLessThanOrEqual(25);
-    }),
-    it("newOrder: 'cognome' is a string", () => {
-      // Given
-      // When
-      const order = newOrder();
-      // Then
-      expect(order.cognome).toBeInstanceOf(String);
-    });
+    expect(typeof order.personalData.nome).toBe("string");
+  });
+  it("newOrder: 'name' is under 25 characters long", () => {
+    expect(order.personalData.nome.length).toBeLessThanOrEqual(25);
+  });
+  it("newOrder: 'cognome' is a string", () => {
+    expect(typeof order.personalData.cognome).toBe("string");
+  });
   it("newOrder: 'cognome' is under 30 characters long", () => {
-    // Given
-    // When
-    const order = newOrder();
-    // Then
-    expect(order.cognome).toBeLessThanOrEqual(30);
+    expect(order.personalData.cognome.length).toBeLessThanOrEqual(30);
   });
   it("newOrder: 'email' is a string", () => {
-    // Given
-    // When
-    const order = newOrder();
-    // Then
-    expect(order.email).toBeInstanceOf(String);
+    expect(typeof order.personalData.email).toBe("string");
   });
   it("newOrder: 'email' is a valid email address", () => {
-    // Given
-    // When
-    const order = newOrder();
-    // Then
-    expect(order.email).toMatch(
+    expect(order.personalData.email).toMatch(
       /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
     );
   });

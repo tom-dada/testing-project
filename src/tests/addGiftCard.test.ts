@@ -1,19 +1,24 @@
-import { addGiftCard } from "../modules/businessLogic";
+import { addGiftCard, newOrder } from "../modules/businessLogic";
 import { orderType } from "../types/types";
 
 describe("addGiftCard tests", () => {
   let order: orderType = {
-    personalData: { nome: "", cognome: "", codiceFiscale: "", email: "" },
-    giftCards: [],
+    personalData: { nome: "Mario", cognome: "Rossi", codiceFiscale: "RSSMRA80A01H501A", email: "mariorossi@gmail.com" },
+    giftCards: [
+      { denomination: 10, quantity: 1, type: "digitale" },
+      { denomination: 20, quantity: 1, type: "digitale" },
+      { denomination: 50, quantity: 1, type: "digitale" },
+      { denomination: 100, quantity: 1, type: "digitale" },
+    ],
   };
 
   // Reset "order" before each test
-  beforeEach(() => {
+   beforeEach(() => {
     order = {
       personalData: { nome: "", cognome: "", codiceFiscale: "", email: "" },
       giftCards: [],
     };
-  });
+  }); 
 
   it("'order' has a non-empty 'gift card' array", () => {
     order = addGiftCard(order, {
@@ -46,7 +51,19 @@ describe("addGiftCard tests", () => {
     });
   });
   it("'order' doesn't have more than 1 'gift card' with the same denomination in the gift card array", () => {
-    // TODO: implement this test
-    expect(true).toBe(true);
+    let order = newOrder({
+      nome: "Mario",
+      cognome: "Rossi",
+      codiceFiscale: "RSSMRA80A01H501A",
+      email: "mariorossi@gmail.com",
+    });
+    order = addGiftCard(order, {
+      denomination: 10,
+      quantity: 1,
+      type: "digitale",
+    });
+    const denominations = order.giftCards.map((card) => card.denomination);
+    const uniqueDenominations = new Set(denominations);
+    expect(denominations.length).toBe(uniqueDenominations.size);
   });
 });

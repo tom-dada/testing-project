@@ -2,14 +2,10 @@ import { addGiftCard, newOrder } from "../modules/businessLogic";
 import { orderType } from "../types/types";
 
 describe("addGiftCard tests", () => {
+
   let order: orderType = {
-    personalData: { nome: "Mario", cognome: "Rossi", codiceFiscale: "RSSMRA80A01H501A", email: "mariorossi@gmail.com" },
-    giftCards: [
-      { denomination: 10, quantity: 1, type: "digitale" },
-      { denomination: 20, quantity: 1, type: "digitale" },
-      { denomination: 50, quantity: 1, type: "digitale" },
-      { denomination: 100, quantity: 1, type: "digitale" },
-    ],
+    personalData: { nome: "", cognome: "", codiceFiscale: "", email: "" },
+    giftCards: [],
   };
 
   // Reset "order" before each test
@@ -21,11 +17,13 @@ describe("addGiftCard tests", () => {
   }); 
 
   it("'order' has a non-empty 'gift card' array", () => {
+    // Given, When
     order = addGiftCard(order, {
       denomination: 10,
       quantity: 1,
       type: "digitale",
     });
+    // Then
     expect(order.giftCards.length).toBeGreaterThan(0);
   });
   it("'order' has a 'type', 'denomination' and 'quantity' prop. for each 'gift card' in the gift card array", () => {
@@ -51,6 +49,7 @@ describe("addGiftCard tests", () => {
     });
   });
   it("'order' doesn't have more than 1 'gift card' with the same denomination in the gift card array", () => {
+    // Given
     let order = newOrder({
       nome: "Mario",
       cognome: "Rossi",
@@ -62,8 +61,10 @@ describe("addGiftCard tests", () => {
       quantity: 1,
       type: "digitale",
     });
+    // When
     const denominations = order.giftCards.map((card) => card.denomination);
     const uniqueDenominations = new Set(denominations);
+    // Then
     expect(denominations.length).toBe(uniqueDenominations.size);
   });
 });

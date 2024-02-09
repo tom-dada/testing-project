@@ -34,6 +34,18 @@ Output:
 
 - Oggetto con i dati dell'ordine aggiornato
 
+## Funzione getAmount
+
+Questa funzione dovrà restituire l'importo totale delle giftcard acquistate (imponibile), la relativa IVA al 22% e il totale da pagare (imponibile + IVA).
+
+Parametri di input:
+
+- Nessuno
+
+Output:
+
+- Oggetto con i totali
+
 ## Task
 
 Fare un fork di questo repository
@@ -53,6 +65,15 @@ Fare un fork di questo repository
 - [] Eseguire i test che falliscono
 - [] Effettuare la commit e la relativa push
 - [] Implementare la funzione addGiftcard
+- [] Eseguire i test che passano
+- [] Effettuare la commit e la relativa push
+
+### Funzione getAmount
+
+- [] Creare i test per la funzione getAmount se possibile per happy path, special cases, edge cases e eccezioni.
+- [] Eseguire i test che falliscono
+- [] Effettuare la commit e la relativa push
+- [] Implementare la funzione getAmount
 - [] Eseguire i test che passano
 - [] Effettuare la commit e la relativa push
 

@@ -8,8 +8,20 @@ export const newOrder = (data: personalDataType): orderType => {
 };
 
 export const addGiftCard = (order: orderType, giftCard: giftCardType): orderType => {
-  order.giftCards.push(giftCard);
-  return order;
+  // Check if order already has a gift card of the same denomination
+  if (order.giftCards.some((card) => card.denomination === giftCard.denomination)) {
+    // If so, increment the quantity of the existing gift card
+    order.giftCards.forEach((card) => {
+      if (card.denomination === giftCard.denomination) {
+        card.quantity += giftCard.quantity;
+      }
+    });
+    return order;
+  } else {
+    // If not, add the new gift card to the order
+    order.giftCards.push(giftCard);
+    return order;
+  }
 };
 
 export const getAmount = (order: orderType): amountType => {

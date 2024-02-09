@@ -2,19 +2,18 @@ import { addGiftCard, newOrder } from "../modules/businessLogic";
 import { orderType } from "../types/types";
 
 describe("addGiftCard tests", () => {
-
   let order: orderType = {
     personalData: { nome: "", cognome: "", codiceFiscale: "", email: "" },
     giftCards: [],
   };
 
   // Reset "order" before each test
-   beforeEach(() => {
+  beforeEach(() => {
     order = {
       personalData: { nome: "", cognome: "", codiceFiscale: "", email: "" },
       giftCards: [],
     };
-  }); 
+  });
 
   it("'order' has a non-empty 'gift card' array", () => {
     // Given, When
@@ -48,23 +47,34 @@ describe("addGiftCard tests", () => {
       expect(typeof card.quantity).toBe("number");
     });
   });
-  it("'order' doesn't have more than 1 'gift card' with the same denomination in the gift card array", () => {
-    // Given
-    let order = newOrder({
-      nome: "Mario",
-      cognome: "Rossi",
-      codiceFiscale: "RSSMRA80A01H501A",
-      email: "mariorossi@gmail.com",
-    });
+  it("'addGiftCard' should increment the quantity of an existing gift card", () => {
     order = addGiftCard(order, {
       denomination: 10,
       quantity: 1,
       type: "digitale",
     });
-    // When
-    const denominations = order.giftCards.map((card) => card.denomination);
-    const uniqueDenominations = new Set(denominations);
-    // Then
-    expect(denominations.length).toBe(uniqueDenominations.size);
+    const newOrder = addGiftCard(order, {
+      denomination: 10,
+      quantity: 1,
+      type: "digitale",
+    });
+    expect(newOrder.giftCards.length).toBe(1);
+    expect(newOrder.giftCards[0].quantity).toBe(2);
+  });
+
+  it("'addGiftCard' should add a new gift card if the denomination is different", () => {
+    order = addGiftCard(order, {
+      denomination: 10,
+      quantity: 1,
+      type: "digitale",
+    });
+    const newOrder = addGiftCard(order, {
+      denomination: 20,
+      quantity: 1,
+      type: "digitale",
+    });
+    expect(newOrder.giftCards.length).toBe(2);
+    expect(newOrder.giftCards[1].denomination).toBe(20);
+    expect(newOrder.giftCards[1].quantity).toBe(1);
   });
 });

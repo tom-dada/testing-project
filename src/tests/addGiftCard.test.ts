@@ -17,7 +17,7 @@ describe("addGiftCard tests", () => {
 
   it("'order' has a non-empty 'gift card' array", () => {
     order = addGiftCard(order, {
-      denomination: "10",
+      denomination: 10,
       quantity: 1,
       type: "digitale",
     });
@@ -35,9 +35,9 @@ describe("addGiftCard tests", () => {
       expect(card.type).toMatch(/digitale|cartacea/);
     });
   });
-  it("'order' has either '10', '20', '50' or '100' as 'denomination' for each 'gift card' in the gift card array", () => {
+  it("'order' is either '10', '20', '50' or '100' as 'denomination' for each 'gift card' in the gift card array", () => {
     order.giftCards.forEach((card) => {
-      expect(card.denomination).toMatch(/10|20|50|100/);
+      expect(card.denomination).toBe(10 || 20 || 50 || 100);
     });
   });
   it("'order' has a number as 'quantity' for each 'gift card' in the gift card array", () => {

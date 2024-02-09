@@ -7,7 +7,7 @@ export type personalDataType = {
 
 export type giftCardType = {
     type: "digitale" | "cartacea";
-    denomination: "10" | "20" | "50" | "100";
+    denomination: 10 | 20 | 50 | 100;
     quantity: number;
 };
 

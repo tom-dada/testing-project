@@ -15,3 +15,9 @@ export type orderType = {
     personalData: personalDataType;
     giftCards: giftCardType[];
 };
+
+export type amountType = {
+    taxable: number;
+    iva: number;
+    total: number;
+};
